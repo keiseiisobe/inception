@@ -2,4 +2,12 @@ services:
   nginx:
     build: ./requirements/nginx
     ports:
-      - "80:80"
+      - "443:443"
+    volumes:
+      - type: bind
+        source: /home/keisei/data
+        target: /var/lib/nginx
+  php-fpm:
+    build: ./requirements/wordpress
+    ports:
+      - "9000:9000"
