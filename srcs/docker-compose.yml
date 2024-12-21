@@ -3,11 +3,32 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
+    networks:
+      - docker-network
     volumes:
-      - type: bind
-        source: /home/keisei/data
-        target: /var/lib/nginx
-  php-fpm:
+      - wp_data:/var/lib/nginx/html
+    depends_on:
+      - wordpress
+  wordpress:
     build: ./requirements/wordpress
-    ports:
-      - "9000:9000"
+    networks:
+      - docker-network
+    volumes:
+      - wp_data:/var/www/html
+    env_file: "./requirements/wordpress/.env"
+    depends_on:
+      - mariadb
+  mariadb:
+    build: ./requirements/mariadb
+    networks:
+      - docker-network
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file: "./requirements/mariadb/.env"
+
+volumes:
+  wp_data:
+  db_data:
+
+networks:
+  docker-network:
