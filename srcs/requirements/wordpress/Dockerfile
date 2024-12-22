@@ -6,12 +6,12 @@ RUN apt-get update; \
 		       wget \
 		       mariadb-client \
 		       ;
-RUN wget https://wordpress.org/latest.tar.gz; \
+RUN wget https://wordpress.org/latest.tar.gz && \
     tar -xzvf latest.tar.gz; \
-    mv wordpress/* /var/www/html/; \
-    rm -rf latest.tar.gz wordpress; \
     mkdir -p /var/www/html && \
-    chown -R www-data:www-data /var/www/html
+    chown -R www-data:www-data /var/www/html; \
+    mv wordpress/* /var/www/html/ && \
+    rm -rf latest.tar.gz wordpress;
 COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
 RUN mkdir /run/php
 #COPY tools/www.conf /usr/local/etc/php-fpm.d/
