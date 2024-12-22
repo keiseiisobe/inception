@@ -3,6 +3,7 @@ RUN apt-get update; \
     apt-get install -y bash \
     	    	       mariadb-server
 COPY tools/docker-entrypoint.sh /
+COPY tools/50-server.conf /etc/mysql/mariadb.conf.d/
 RUN chmod 777 /docker-entrypoint.sh
 RUN mkdir -p /var/lib/mysql /run/mysqld; \
     chown -R mysql:mysql /var/lib/mysql /run/mysqld
