@@ -1,20 +1,10 @@
-NAME = btc
-SRCS = main.cpp BitcoinExchange.cpp Regex.cpp
-OBJS = $(SRCS:.cpp=.o)
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+up:
+	docker compose -f srcs/docker-compose.yml up
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+build:
+	docker compose -f srcs/docker-compose.yml build
 
-all: $(NAME)
+down:
+	docker compose -f srcs/docker-compose.yml down
 
-clean:
-	rm -rf $(OBJS)
-
-fclean: clean
-	rm -rf $(NAME)
-
-re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY: up build down

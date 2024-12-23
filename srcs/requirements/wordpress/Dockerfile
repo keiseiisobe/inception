@@ -4,21 +4,19 @@ RUN apt-get update; \
     	    	       php-fpm \
 		       php-mysql \
 		       wget \
+		       curl \
 		       mariadb-client \
 		       ;
-RUN wget https://wordpress.org/latest.tar.gz && \
-    tar -xzvf latest.tar.gz; \
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp; \
     mkdir -p /var/www/html && \
-    chown -R www-data:www-data /var/www/html; \
-    mv wordpress/* /var/www/html/ && \
-    rm -rf latest.tar.gz wordpress;
+    chown -R www-data:www-data /var/www/html;
 COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
 RUN mkdir /run/php
-#COPY tools/www.conf /usr/local/etc/php-fpm.d/
 COPY tools/docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
 EXPOSE 9000
 ENTRYPOINT ["/docker-entrypoint.sh"]
 WORKDIR /var/www/html
 CMD ["php-fpm7.4", "-F"]
-#CMD ["bash"]

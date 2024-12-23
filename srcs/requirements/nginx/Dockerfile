@@ -7,4 +7,3 @@ EXPOSE 443
 COPY tools/nginx.conf /etc/nginx/nginx.conf
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
-#CMD ["bash"]
