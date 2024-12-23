@@ -44,7 +44,7 @@ networks:
 
 secrets:
   server-certificate:
-    file: ../secrets/cert.csr
+    file: ../secrets/cert.crt
   server-certificate-key:
     file: ../secrets/cert.key
     
