@@ -1,16 +1,23 @@
 services:
   nginx:
+    image: nginx
     build: ./requirements/nginx
+    pull_policy: build
     ports:
       - "443:443"
     networks:
       - docker-network
     volumes:
       - wp_data:/var/lib/nginx/html
+    secrets:
+      - server-certificate
+      - server-certificate-key
     depends_on:
       - wordpress
   wordpress:
+    image: wordpress
     build: ./requirements/wordpress
+    pull_policy: build
     networks:
       - docker-network
     volumes:
@@ -19,7 +26,9 @@ services:
     depends_on:
       - mariadb
   mariadb:
+    image: mariadb
     build: ./requirements/mariadb
+    pull_policy: build
     networks:
       - docker-network
     volumes:
@@ -32,3 +41,10 @@ volumes:
 
 networks:
   docker-network:
+
+secrets:
+  server-certificate:
+    file: ../secrets/cert.csr
+  server-certificate-key:
+    file: ../secrets/cert.key
+    
