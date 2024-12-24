@@ -29,6 +29,7 @@ services:
     restart: always
     depends_on:
       - mariadb
+      - redis
   mariadb:
     image: mariadb
     build: ./requirements/mariadb
@@ -41,6 +42,13 @@ services:
     secrets:
       - db-password
       - db-root-password
+    restart: always
+  redis:
+    image: redis
+    build: ./requirements/redis
+    pull_policy: build
+    networks:
+      - docker-network
     restart: always
 
 volumes:

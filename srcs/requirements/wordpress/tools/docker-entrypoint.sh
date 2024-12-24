@@ -13,8 +13,10 @@ if [ ! -s wp-config.php ]; then
        --admin_user=${WORDPRESS_ADMIN_USER} \
        --admin_email=${WORDPRESS_ADMIN_EMAIL}
     wp --allow-root user create ${WORDPRESS_USER_LOGIN} ${WORDPRESS_USER_EMAIL}
-fi
 
-echo "hello world" > index.html
+    # redis
+    wp --allow-root plugin install redis-cache --activate
+    wp --allow-root redis enable
+fi
 
 exec "$@"
