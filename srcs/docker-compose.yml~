@@ -1,6 +1,0 @@
-services:
-	nginx:
-		build: ./requirements/nginx
-		ports:
-		- 80:80
-		
