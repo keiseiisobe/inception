@@ -4,6 +4,6 @@ RUN apk add --no-cache bash \
 COPY tools/docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
 EXPOSE 443
-COPY tools/nginx.conf /etc/nginx/nginx.conf
+COPY tools/default.conf /etc/nginx/http.d/default.conf
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

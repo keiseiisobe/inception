@@ -11,9 +11,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp; \
     mkdir -p /var/www/html && \
-    chown -R www-data:www-data /var/www/html;
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R +x /var/www/html;
 COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
-COPY tools/index.html /var/www/html/
+COPY tools/42tokyo.html /var/www/html/
 RUN mkdir /run/php
 COPY tools/docker-entrypoint.sh /
 RUN chmod 777 /docker-entrypoint.sh
